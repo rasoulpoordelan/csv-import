@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Show Data</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Show Data</h2>
+  <p>The list shows data in paginations</p>            
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>timestamp</th>
+        <th>tempature</th>
+         <th>duration</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for item in my_data %}
+       <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.timestamp}}</td>
+        <td>{{item.temperature}}</td>
+        <td>{{item.duration}}</td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation">
+  <ul class="pagination">
+    
+     <li class="page-item {{ 'disabled' if (not pagination.has_previous) }} ">
+     {% if (not pagination.has_previous) %}
+      <span class="page-link">Previous</span> 
+      {% else %}
+      <a class="page-link" href="?page={{ pagination.page-1 }}&size={{pagination.size}}">Previous</a>
+     {% endif %}
+    </li>
+
+    {% for item in pagination.pages %}
+    <li class="page-item {{'active' if item[0] == pagination.page }}">
+       <a class="page-link" href="?page={{item[0]}}&size={{item[1]}}"> 
+         {{item[0]}} 
+        </a></li>
+    {% endfor %}
+
+    <li class="page-item {{ 'disabled' if (not pagination.has_next) }} ">
+     {% if (not pagination.has_next) %}
+      <span class="page-link">Next</span> 
+      {% else %}
+      <a class="page-link" href="?page={{ pagination.page+1 }}&size={{pagination.size}}">Next</a>
+     {% endif %}
+
+    </li>
+  </ul>
+</nav>
+
+</div>
+
+</body>
+</html>
+
+
+
